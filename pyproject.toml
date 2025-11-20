@@ -8,6 +8,7 @@ description = "Python package to access the SEASTERS database."
 authors = [{ name = "Quentin Desmet", email = "desmetque@gmail.com" }]
 dynamic = ["version"]
 requires-python = ">=3.10, <3.13"
+license = { text = "MIT" }
 
 dependencies = [
   "duckdb<1.4",
