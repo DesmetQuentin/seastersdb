@@ -1,0 +1,11 @@
+__pycache__
+seastersdb/__pycache__
+tests/__pycache__
+.pytest_cache
+.coverage*
+seastersdb.egg-info
+.mypy_cache
+seastersdb/_version.py
+examples/*.png
+examples/*.pdf
+examples/*.eps
