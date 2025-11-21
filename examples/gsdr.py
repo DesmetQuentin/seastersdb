@@ -2,7 +2,10 @@ import logging
 
 import seastersdb as sdb
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    format="[%(asctime)s]%(levelname)s:%(funcName)s: %(message)s",
+    level=logging.INFO,
+)
 log = logging.getLogger(__name__)
 
 con = sdb.connect()
