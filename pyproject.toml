@@ -25,6 +25,9 @@ dev = [
   "pre-commit",
 ]
 
+[project.scripts]
+seastersdb = "seastersdb.program.main:main"
+
 [tool.setuptools_scm]
 write_to = "seastersdb/_version.py"
 
