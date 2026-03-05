@@ -1,7 +1,23 @@
 import tkinter as tk
-from tkinter import scrolledtext
+from tkinter import scrolledtext, messagebox, Toplevel
 from typing import Callable, List
 from duckdb import ParserException, BinderException, CatalogException
+
+__all__ = ["Viewer"]
+
+def _extract_query(string: str, query_prefix: str) -> str:
+    def remove_prefix(lines: List[str], prefix: str) -> str:
+        return "\n".join([line[len(prefix):] for line in lines])
+    
+    lines = string.split("\n")
+    i = 0
+    char = lines[i][:len(query_prefix)]
+    while char == query_prefix:
+        i += 1
+        char = lines[i][:len(query_prefix)]
+    result = remove_prefix(lines[:i], query_prefix)
+
+    return result
 
 class Viewer:
     """
@@ -29,7 +45,7 @@ class Viewer:
         self.input_label = tk.Label(self.root, text="Enter query:")
         self.input_label.pack(anchor="w")
         self.query_area = tk.Text(self.root, height=5, width=80)
-        self.query_area.pack(fill="x", padx=5, pady=5)
+        self.query_area.pack(fill="both", expand=True, padx=5, pady=5)
         self.query_area.bind("<Control-Return>", lambda e: self.run_query())
         self.query_area.bind("<Prior>", self.show_prev_history)
         self.query_area.bind("<Next>", self.show_next_history)
@@ -74,7 +90,7 @@ class Viewer:
         export_frame.pack(side="right")
 
         # Entry with placeholder
-        self.export_entry = tk.Entry(export_frame, width=20, fg="gray")
+        self.export_entry = tk.Entry(export_frame, width=30, fg="gray")
         self.export_entry.insert(0, "filename.csv")
 
         def on_focus_in(event):
@@ -94,6 +110,10 @@ class Viewer:
         # Export button
         self.export_button = tk.Button(export_frame, text="Export", command=self.export_response)
         self.export_button.pack(side="left")
+
+        # Copy Button
+        self.copy_button = tk.Button(lower_frame, text="Copy", command=self.copy_query)
+        self.copy_button.pack(side="left", padx=5)
 
         # Status bar at bottom
         self.status_var = tk.StringVar()
@@ -148,6 +168,10 @@ class Viewer:
         self._show_response(self.response_index)
 
         self.query_area.delete("1.0", "end")
+
+    def _load_history_item(self):
+        self.query_area.delete("1.0", "end")
+        self.query_area.insert("1.0", self.history[self.history_index])
     
     def show_prev_history(self, event):
         if self.history and self.history_index > 0:
@@ -164,10 +188,6 @@ class Viewer:
             self.history_index = len(self.history)
             self.query_area.delete("1.0", "end")
         return "break"
-
-    def _load_history_item(self):
-        self.query_area.delete("1.0", "end")
-        self.query_area.insert("1.0", self.history[self.history_index])
     
     def _show_response(self, index):
         if 0 <= index < len(self.responses):
@@ -185,19 +205,31 @@ class Viewer:
         if self.response_index < len(self.responses) - 1:
             self.response_index += 1
             self._show_response(self.response_index)
-    
-    def export_response(self):
 
-        filename = self.export_entry.get().strip()
-        if filename:
+    def _finish_export(self, filename):
+        query = _extract_query(self.responses[self.response_index], "> ")
+
+        try:
             self.efunc(filename, query)
-            self.status_var.set(f"Successfully exported to: {filename}")
+            self.status_var.set(f"Exported to: {filename}")
+        except Exception as e:
+            self.status_var.set(f"Export failed: {e}")
+        finally:
+            self.export_button.config(state="normal")
+
+        self.root.after(3000, lambda: self.status_var.set(""))
     
     def export_response(self):
         filename = self.export_entry.get().strip()
+
+        if self.response_index == -1:
+            self.status_var.set("No response to export.")
+            self.root.after(3000, lambda: self.status_var.set(""))
+            return
 
         if not filename or filename == "filename.csv":
             self.status_var.set("Please enter a valid filename.")
+            self.root.after(3000, lambda: self.status_var.set(""))
             return
 
         # Disable export button
@@ -207,30 +239,20 @@ class Viewer:
         # Run export in the event loop so UI stays responsive
         self.root.after(50, lambda: self._finish_export(filename))
 
-    def _finish_export(self, filename):
-        def extract_query(string: str, query_prefix: str) -> str:
-            def remove_prefix(lines: List[str], prefix: str) -> str:
-                return "\n".join([line[len(prefix):] for line in lines])
-            
-            lines = string.split("\n")
-            i = 0
-            char = lines[i][:len(query_prefix)]
-            while char == query_prefix:
-                i += 1
-                char = lines[i][:len(query_prefix)]
-            result = remove_prefix(lines[:i], query_prefix)
+    def copy_query(self):
+        if self.response_index == -1:
+            self.status_var.set("No query to copy.")
+            self.root.after(3000, lambda: self.status_var.set(""))
+            return
 
-            return result
+        query = _extract_query(self.responses[self.response_index], "> ")
 
-        query = extract_query(self.responses[self.response_index], "> ")
-
-        try:
-            self.efunc(filename, query)
-            self.status_var.set(f"Exported to: {filename}")
-        except Exception as e:
-            self.status_var.set(f"Export failed: {e}")
-        finally:
-            self.export_button.config(state="normal")
+        if query:
+            self.root.clipboard_clear()  # Clear the current clipboard content
+            self.root.clipboard_append(query)  # Append the query text to clipboard
+            self.status_var.set("Query copied to clipboard.")  # Update status
+        else:
+            self.status_var.set("No query to copy.")  # Show a message if no query exists
 
         self.root.after(3000, lambda: self.status_var.set(""))
 
