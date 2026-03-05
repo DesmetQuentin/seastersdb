@@ -58,15 +58,13 @@ def connect(**read_parquet_kws: Dict[str, Any]) -> duckdb.DuckDBPyConnection:
     # Create path macros
     def create_path_macro(name: str, path: str, **kws) -> None:
         str_kws = ", ".join(f"{k} = {v!r}" for k, v in kws.items())
-        con.execute(
-            f"""
+        con.execute(f"""
                 CREATE MACRO {name}()
                 AS TABLE
                 FROM read_parquet(
                     '{path}'{(',' + str_kws) if str_kws else ''}
                 )
-            """  # noqa: E202
-        )
+            """)  # noqa: E202
 
     pathdb = get_pathdb()
     for network in ["BSRN", "GHCNd", "GHCNh", "GSDR"]:
@@ -89,8 +87,7 @@ def connect(**read_parquet_kws: Dict[str, Any]) -> duckdb.DuckDBPyConnection:
                 f"{pathdb}/metadata/variables-{networkl}.parquet",
             )
     str_kws = ", ".join(f"{k} = {v!r}" for k, v in read_parquet_kws.items())
-    con.execute(
-        f"""
+    con.execute(f"""
         CREATE MACRO bsrn(dataset)
         AS TABLE
         FROM read_parquet(
@@ -99,8 +96,7 @@ def connect(**read_parquet_kws: Dict[str, Any]) -> duckdb.DuckDBPyConnection:
             '.parquet'
             {(',' + str_kws) if str_kws else ''}
         )
-    """  # noqa: E202, E222
-    )
+    """)  # noqa: E202, E222
     log.info("Created macros to access the SEASTERS database.")
 
     # Record functions

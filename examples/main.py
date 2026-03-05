@@ -39,14 +39,12 @@ con.sql("SELECT * FROM bsrn_var() WHERE dataset = 'radiation'").show()
 log.info("Executed request 4.")
 
 # Access data
-res = con.sql(
-    """
+res = con.sql("""
     SELECT timestamp, station_id, DIF
     FROM bsrn('radiation') JOIN bsrn_stations() USING (station_id)
     WHERE lat BETWEEN -10 AND 0 AND timestamp BETWEEN TIMESTAMP '2008-01-01' AND TIMESTAMP '2010-01-01'
     ORDER BY timestamp
-"""
-)
+""")
 log.info("Executed request 5.")
 
 # Show/export

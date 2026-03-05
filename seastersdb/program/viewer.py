@@ -1,23 +1,25 @@
 import tkinter as tk
-from tkinter import scrolledtext, messagebox, Toplevel
 from typing import Callable, List
-from duckdb import ParserException, BinderException, CatalogException
+
+from duckdb import BinderException, CatalogException, ParserException
 
 __all__ = ["Viewer"]
 
+
 def _extract_query(string: str, query_prefix: str) -> str:
     def remove_prefix(lines: List[str], prefix: str) -> str:
-        return "\n".join([line[len(prefix):] for line in lines])
-    
+        return "\n".join([line[len(prefix) :] for line in lines])  # noqa: E203
+
     lines = string.split("\n")
     i = 0
-    char = lines[i][:len(query_prefix)]
+    char = lines[i][: len(query_prefix)]
     while char == query_prefix:
         i += 1
-        char = lines[i][:len(query_prefix)]
+        char = lines[i][: len(query_prefix)]
     result = remove_prefix(lines[:i], query_prefix)
 
     return result
+
 
 class Viewer:
     """
@@ -25,7 +27,12 @@ class Viewer:
     Displays the query, output, and error messages.
     """
 
-    def __init__(self, query_func: Callable[[str], str], export_func: Callable[[str, str], None], title="Function Viewer"):
+    def __init__(
+        self,
+        query_func: Callable[[str], str],
+        export_func: Callable[[str, str], None],
+        title="Function Viewer",
+    ):
         self.qfunc = query_func
         self.efunc = export_func
 
@@ -34,11 +41,11 @@ class Viewer:
         self.root.title(title)
 
         # Query history
-        self.history = []
+        self.history: List[str] = []
         self.history_index = -1
 
         # Response history
-        self.responses = []
+        self.responses: List[str] = []
         self.response_index = -1
 
         # Input frame
@@ -71,7 +78,9 @@ class Viewer:
         self.response_area.configure(yscrollcommand=vsb.set)
 
         # Horizontal scrollbar (below the text area)
-        hsb = tk.Scrollbar(self.root, orient="horizontal", command=self.response_area.xview)
+        hsb = tk.Scrollbar(
+            self.root, orient="horizontal", command=self.response_area.xview
+        )
         hsb.pack(fill="x")
         self.response_area.configure(xscrollcommand=hsb.set)
 
@@ -79,10 +88,14 @@ class Viewer:
         lower_frame = tk.Frame(self.root)
         lower_frame.pack(anchor="w", pady=(2, 5))
 
-        self.prev_button = tk.Button(lower_frame, text="<", command=self.show_prev_response)
+        self.prev_button = tk.Button(
+            lower_frame, text="<", command=self.show_prev_response
+        )
         self.prev_button.pack(side="left")
 
-        self.next_button = tk.Button(lower_frame, text=">", command=self.show_next_response)
+        self.next_button = tk.Button(
+            lower_frame, text=">", command=self.show_next_response
+        )
         self.next_button.pack(side="left")
 
         # Export widgets on the right side of the same line
@@ -108,7 +121,9 @@ class Viewer:
         self.export_entry.pack(side="left", padx=5)
 
         # Export button
-        self.export_button = tk.Button(export_frame, text="Export", command=self.export_response)
+        self.export_button = tk.Button(
+            export_frame, text="Export", command=self.export_response
+        )
         self.export_button.pack(side="left")
 
         # Copy Button
@@ -118,9 +133,10 @@ class Viewer:
         # Status bar at bottom
         self.status_var = tk.StringVar()
         self.status_var.set("")
-        self.status_bar = tk.Label(self.root, textvariable=self.status_var, anchor="w", relief="sunken")
+        self.status_bar = tk.Label(
+            self.root, textvariable=self.status_var, anchor="w", relief="sunken"
+        )
         self.status_bar.pack(fill="x", side="bottom")
-
 
     def run_query(self):
 
@@ -134,12 +150,22 @@ class Viewer:
                 else:
                     ch = old.pop()
                     return replace_list(string.replace(ch, new), old, new)
-            
+
             lines = string.split("\n")
-            hline = replace_list(lines[0], ["┌", "└", "┘", "┐", "├", "┬", "┴", "┤", "┼"], "+").replace("─", "-")
-            result = "\n".join([line.replace("│", "|") if line and line[0] in {"│", " "} else (hline if line else "") for line in lines])
+            hline = replace_list(
+                lines[0], ["┌", "└", "┘", "┐", "├", "┬", "┴", "┤", "┼"], "+"
+            ).replace("─", "-")
+            result = "\n".join(
+                [
+                    (
+                        line.replace("│", "|")
+                        if line and line[0] in {"│", " "}
+                        else (hline if line else "")
+                    )
+                    for line in lines
+                ]
+            )
             return result.strip("\n")
-        
 
         query = self.query_area.get("1.0", "end").strip()
         if query:
@@ -172,7 +198,7 @@ class Viewer:
     def _load_history_item(self):
         self.query_area.delete("1.0", "end")
         self.query_area.insert("1.0", self.history[self.history_index])
-    
+
     def show_prev_history(self, event):
         if self.history and self.history_index > 0:
             self.history_index -= 1
@@ -188,7 +214,7 @@ class Viewer:
             self.history_index = len(self.history)
             self.query_area.delete("1.0", "end")
         return "break"
-    
+
     def _show_response(self, index):
         if 0 <= index < len(self.responses):
             self.response_area.config(state="normal")
@@ -218,7 +244,7 @@ class Viewer:
             self.export_button.config(state="normal")
 
         self.root.after(3000, lambda: self.status_var.set(""))
-    
+
     def export_response(self):
         filename = self.export_entry.get().strip()
 
@@ -252,7 +278,9 @@ class Viewer:
             self.root.clipboard_append(query)  # Append the query text to clipboard
             self.status_var.set("Query copied to clipboard.")  # Update status
         else:
-            self.status_var.set("No query to copy.")  # Show a message if no query exists
+            self.status_var.set(
+                "No query to copy."
+            )  # Show a message if no query exists
 
         self.root.after(3000, lambda: self.status_var.set(""))
 

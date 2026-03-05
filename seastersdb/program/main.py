@@ -1,9 +1,11 @@
-from ..connect import connect
-from .viewer import Viewer
-from typing import Callable
-from duckdb import DuckDBPyConnection
 import io
 import sys
+from typing import Callable
+
+from duckdb import DuckDBPyConnection
+
+from ..connect import connect
+from .viewer import Viewer
 
 
 def main() -> None:
@@ -15,9 +17,9 @@ def main() -> None:
             con.sql(query).show(max_width=1000)
             sys.stdout = sys.__stdout__
             return buffer.getvalue()
-        
+
         return function
-    
+
     def export_wrapper(con: DuckDBPyConnection) -> Callable[[str, str], None]:
         def function(filename: str, query: str) -> None:
             df = con.sql(query).df()
