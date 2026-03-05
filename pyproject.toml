@@ -13,6 +13,7 @@ license = { text = "MIT" }
 dependencies = [
   "duckdb<1.4",
   "numpy",
+  "pandas",
 ]
 
 [project.optional-dependencies]
@@ -27,6 +28,7 @@ dev = [
 
 [project.scripts]
 seastersdb = "seastersdb.program.main:main"
+seastersdb-locate = "seastersdb.program.locate:main"
 
 [tool.setuptools_scm]
 write_to = "seastersdb/_version.py"
