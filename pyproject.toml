@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "seastersdb"
-description = "Python package to access the SEASTERS database."
+description = "Python package to access the SEASTERS database using SQL queries."
 authors = [{ name = "Quentin Desmet", email = "desmetque@gmail.com" }]
 dynamic = ["version"]
 requires-python = ">=3.10, <3.13"
@@ -24,6 +24,14 @@ dev = [
   "flake8-pyproject",
   "mypy",
   "pre-commit",
+]
+doc = [
+  "sphinx",
+  "pydata-sphinx-theme",
+  "sphinx-autodoc2",
+  "sphinx-copybutton",
+  "sphinx-design",
+  "sphinxcontrib-bibtex",
 ]
 
 [project.scripts]

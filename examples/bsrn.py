@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 con = sdb.connect()
 log.info("Connection completed")
 
-res = con.execute("""
+con.execute("""
     SELECT r.timestamp, r.station_id, r.DIF
     FROM bsrn('radiation') as r
     JOIN bsrn_stations() AS s USING (station_id)
@@ -22,7 +22,7 @@ res = con.execute("""
 """)
 log.info("Executed query.")
 
-df = res.df()
+df = con.df()
 log.info("Extracted DataFrame.")
 
 print(df)
