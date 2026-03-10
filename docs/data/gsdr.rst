@@ -1,7 +1,7 @@
 .. _gsdr:
 
-BSRN
-====
+Global Sub-Daily Rainfall (GSDR)
+================================
 
 Description
 -----------
@@ -28,7 +28,7 @@ Description
 
 .. note::
 
-   In SEASTERS, we included the stations from five countries: Japan, Malaysia, India and
+   In SEASTERS, we included the stations from four countries: Japan, Malaysia, India and
    Australia.
 
 
@@ -38,63 +38,6 @@ Description
    published work, please first contact the CNRM branch of SEASTERS -- who we got
    this data from -- to get the approval of the team behind the dataset. Also check
    this page's :ref:`How to cite <gsdr-cite>` section.
-
-
-Data access with SEASTERSdb
----------------------------
-
-With SEASTERSdb, the most direct way to access GSDR data is by using the
-:func:`~seastersdb.gsdr.data_loaders.load_gsdr` function. Hereafter
-is a code snippet applying this function with some filtering:
-
-.. code:: pycon
-
-   >>> from datetime import datetime
-   >>> import seastersdb as ps
-   >>> data, metadata = ps.load_gsdr(
-   ...    filter_condition="station_id.str.startswith('MY')",  # focuses on Malaysia
-   ...    time_range=[datetime(2017, 1, 1), datetime(2017, 12, 31)],
-   ... )
-   >>> data
-                              MY_johor_1437116  ...  MY_terengganu_5725006
-   time                                         ...
-   2010-01-01 00:00:00+00:00               NaN  ...                    NaN
-   2010-01-01 00:30:00+00:00               0.0  ...                    0.0
-   2010-01-01 01:00:00+00:00               NaN  ...                    NaN
-   2010-01-01 01:30:00+00:00               0.1  ...                    0.3
-   2010-01-01 02:00:00+00:00               NaN  ...                    NaN
-   ...                                     ...  ...                    ...
-   2011-12-30 22:00:00+00:00               NaN  ...                    NaN
-   2011-12-30 22:30:00+00:00               0.0  ...                    0.1
-   2011-12-30 23:00:00+00:00               NaN  ...                    NaN
-   2011-12-30 23:30:00+00:00               0.0  ...                    5.0
-   2011-12-31 00:00:00+00:00               NaN  ...                    NaN
-
-   [34993 rows x 186 columns]
-   >>> metadata
-                           lat     lon  ...  resolution percent_missing_data
-   station_id                           ...
-   MY_johor_1437116       1.47  103.75  ...         0.1                  0.0
-   MY_johor_1534002       1.52  103.49  ...         0.1                  0.0
-   MY_johor_1541139       1.53  104.18  ...         0.1                  0.0
-   MY_johor_1636001       1.63  103.70  ...         0.1                  0.0
-   MY_johor_1732001       1.71  103.28  ...         0.1                  0.0
-   ...                     ...     ...  ...         ...                  ...
-   MY_terengganu_5428025  5.47  102.81  ...         0.1                  0.0
-   MY_terengganu_5430049  5.43  103.04  ...         0.1                  0.0
-   MY_terengganu_5529027  5.53  102.95  ...         0.1                  0.0
-   MY_terengganu_5626001  5.64  102.62  ...         0.1                  0.0
-   MY_terengganu_5725006  5.80  102.57  ...         0.1                  0.0
-
-   [186 rows x 9 columns]
-
-
-.. seealso::
-
-   :ref:`User guide \> Rain gauge data <guide-rain-gauge>`
-      User guide page introducing rain gauge data loading functions looking into all
-      available datasets -- including GSDR --, and giving more details about filtering
-      and searching in SEASTERSdb.
 
 
 Station names and IDs
@@ -109,12 +52,6 @@ country code of the `ISO 3166 standard <https://en.wikipedia.org/wiki/ISO_3166>`
 
 For instance, ``IN_33`` is the ID of a station located in India, and
 ``MY_pahang_4023001`` that of a station located in Malaysia.
-
-.. seealso::
-
-   :doc:`seastersdb.COUNTRIES <../api/seastersdb.constants.countries>`
-      SEASTERSdb provides the ``COUNTRIES`` constant ``pandas`` DataFrame that relates
-      country names with ISO and FIPS codes.
 
 
 Station names

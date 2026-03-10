@@ -89,31 +89,13 @@ From within your ``seasters`` virtual environment, you can now **install seaster
 This should install seastersdb and its dependencies.
 
 Then, we need to **let seastersdb know where is the database** on your machine.
-The database is currently deployed in three locations: CNRM, HILO and Calmip.
-We use the ``seastersdb-locate`` command, indicating the adequate directory:
+Retrieve the directory to the database on your machine :ref:`here <location>`_ then give
+it to the ``seastersdb-locate`` command as follows (adapt the path adequately):
 
-.. tab-set::
+.. code:: shell
 
-   .. tab-item:: CNRM
+   seastersdb-locate /path/to/SEASTERS
 
-      .. code:: shell
-
-         seastersdb-locate /cnrm/tropics/DATACOMMUN/SEASTERS
-
-
-   .. tab-item:: HILO
-
-      .. code:: shell
-
-         seastersdb-locate /data/project/lotus/SEASTERS
-      
-
-   .. tab-item:: Calmip
-
-      .. code:: shell
-
-         seastersdb-locate /tmpdir/desmet/SEASTERS
-     
 
 This should output the following confirmation message:
 
@@ -121,6 +103,8 @@ This should output the following confirmation message:
 
    API configuration completed!
 
+
+.. _testing:
 
 Testing
 -------

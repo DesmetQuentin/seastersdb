@@ -6,7 +6,7 @@ SQL queries in SEASTERS
 Generalities
 ------------
 
-You may have noticed it during :doc:`installation <../access/install>`: seastersdb is
+You may have noticed it during :ref:`installation <install-main>`: seastersdb is
 essentially based on `DuckDB <duckdb.org>`_, which provides a friendly SQL interface
 to store and retrieve data in and from a relational database. With seastersdb, we
 only provide a tool for the "data retrieval" part. SQL (Structured Query Language) is a
@@ -19,7 +19,7 @@ having a look at the "Query Syntax" section of
 
 .. seealso::
 
-   :doc:`SEASTERS Database Schemas <../database/schema>`: Complete relational schemas of the SEASTERS
+   :ref:`SEASTERS Database Schemas <schema>`: Complete relational schemas of the SEASTERS
    database.
 
 

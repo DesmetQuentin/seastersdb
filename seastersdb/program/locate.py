@@ -22,7 +22,9 @@ def main() -> None:
     # Write data directory in 'seastersdb/data/path.txt'
     file = Path(spec.origin).parent / "data" / "path.txt"
     file.write_text(str(Path(args.path).resolve()))
-    sys.stdout.write("API configuration completed!\n")
+    sys.stdout.write(
+        f"API configuration completed! (package location: {Path(spec.origin).parent})\n"
+    )
     sys.exit(0)
 
 

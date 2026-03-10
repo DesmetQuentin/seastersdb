@@ -3,9 +3,9 @@
 Why the ``parquet`` format?
 ===========================
 
-While using the API, GHCNd data is loaded from a database stored using the ``parquet``
+While using the API, station data is loaded from a database stored using the ``parquet``
 format. Conversion from the original ``csv`` format to ``parquet`` is
-conducted during :ref:`preprocessing <preprocess>`. This is justified by
+conducted during preprocessing. This is justified by
 **enormous gains** in terms of **storage** and **loading speed**,
 as shortly demonstrated below.
 

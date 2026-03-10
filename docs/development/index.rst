@@ -1,6 +1,0 @@
-Development
-===========
-
-.. toctree::
-
-    install
