@@ -2,7 +2,7 @@ import re
 from pathlib import Path
 
 LOC_DIR = Path(__name__).resolve().parent
-API_DIR = LOC_DIR / "docs" / "api"
+API_DIR = LOC_DIR / "doc" / "api"
 JOIN_STRING = "\n      "
 EXCLUDE = [""]
 
