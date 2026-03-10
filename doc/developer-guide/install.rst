@@ -1,12 +1,10 @@
 Installation for developers
 ===========================
 
+From within your ``seasters`` virtual environment, you can install seastersdb
+with the dependencies for developping and building the doc, using the following syntax:
 
-If you are a developer who wishes to contribute to SEASTERSdb in any way, you must
-follow a specific workflow which also has some tool dependendies. They are divided
-into pure development tools (``dev``) and tools for generating the documentation
-(``doc``). Install them from the ``seastersdb`` environment and folder using:
+.. code:: shell
 
-.. code:: bash
+   pip install "seastersdb[dev,doc] @ git+https://github.com/DesmetQuentin/seastersdb.git"
 
-   pip install -e .[dev,doc]
