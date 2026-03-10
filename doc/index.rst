@@ -1,5 +1,5 @@
-The SEASTERS database and interface
-===================================
+The SEASTERS database & interface
+=================================
 
 This websites presents the data included in the SEASTERS database together with
 seastersdb, a Python package providing an interface to access the database with SQL
