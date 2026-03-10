@@ -3,8 +3,10 @@
 Data
 ====
 
-The SEASTERS database includes data from four station networks across Southeast Asia.
-The cards below point the networks' description, with useful links and references.
+The SEASTERS database includes data from four station networks across Southeast
+Asia [*]_.
+The cards below point to pages providing their description, with useful information,
+links and references.
 
 .. toctree::
    :maxdepth: 1
@@ -17,7 +19,7 @@ The cards below point the networks' description, with useful links and reference
 
 
 .. grid:: 2
-   :gutter: 2
+   :gutter: 3
 
    .. grid-item-card:: GHCNd
       :link: ghcnd
@@ -58,50 +60,42 @@ The cards below point the networks' description, with useful links and reference
    :download:`references.bib <../_static/references.bib>`.
 
 
-Each network has independent relational tables, such that the database can be
-represented with the relational schema below:
+----
 
-.. code:: shell
+.. [*] Data was curated considering an extended Southeast Asian area, including stations from
+   the following territories:
 
-   Image TODO
-
-
-TODO: footnote
-
-Data was curated considering an extended Southeast Asian area, including stations from
-the following territories:
-
-.. hlist::
-   :columns: 3
-
-   * Australia
-   * Bangladesh
-   * Bhutan
-   * Brunei
-   * Cambodia
-   * China
-   * Christmas Island
-   * Cocos (Keeling) Islands
-   * Federated States of Micronesia
-   * Guam
-   * Hong Kong
-   * India
-   * Indonesia
-   * Japan
-   * Laos
-   * Macau
-   * Malaysia
-   * Myanmar
-   * Nepal
-   * Northern Mariana Islands
-   * Palau
-   * Papua New Guinea
-   * Philippines
-   * Singapore
-   * Solomon Islands
-   * Sri Lanka
-   * Taiwan
-   * Thailand
-   * Timor-Leste
-   * Vietnam
-
+   .. hlist::
+      :columns: 3
+   
+      * Australia
+      * Bangladesh
+      * Bhutan
+      * Brunei
+      * Cambodia
+      * China
+      * Christmas Island
+      * Cocos (Keeling) Islands
+      * Federated States of Micronesia
+      * Guam
+      * Hong Kong
+      * India
+      * Indonesia
+      * Japan
+      * Laos
+      * Macau
+      * Malaysia
+      * Myanmar
+      * Nepal
+      * Northern Mariana Islands
+      * Palau
+      * Papua New Guinea
+      * Philippines
+      * Singapore
+      * Solomon Islands
+      * Sri Lanka
+      * Taiwan
+      * Thailand
+      * Timor-Leste
+      * Vietnam
+   

@@ -40,6 +40,18 @@ Description
    this page's :ref:`How to cite <gsdr-cite>` section.
 
 
+Relational schema
+-----------------
+
+Below is the relational schema of GSDR in SEASTERS.
+The only variable in this dataset is ``Precipitation``, stored in millimeters.
+
+.. _schema:
+
+.. image:: ../_static/schema_gsdr.webp
+   :alt: GSDR relational schema
+
+
 Station names and IDs
 ---------------------
 

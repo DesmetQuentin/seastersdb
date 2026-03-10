@@ -17,11 +17,6 @@ with a number of examples. If you need further information on the syntax, we rec
 having a look at the "Query Syntax" section of
 `this documentation <https://duckdb.org/docs/stable/sql/query_syntax/select>`_.
 
-.. seealso::
-
-   :ref:`SEASTERS Database Schemas <schema>`: Complete relational schemas of the SEASTERS
-   database.
-
 
 .. _macros:
 
@@ -93,6 +88,39 @@ The table below lists all resulting macros with their specific descriptions:
      - Access inventory for the GSDR network.
 
 
+SEASTERS relational schemas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Tables behind SEASTERS macros are linked to each other following the relational schemas
+shown below. They can be joint using the primary keys emphasized in bold.
+
+.. tab-set::
+
+   .. tab-item:: GHCNd
+
+      .. image:: ../_static/schema_ghcnd.webp
+         :alt: GHCNd relational schema
+         
+
+   .. tab-item:: GHCNh
+
+      .. image:: ../_static/schema_ghcnh.webp
+         :alt: GHCNh relational schema
+         
+
+   .. tab-item:: GSDR
+
+      .. image:: ../_static/schema_gsdr.webp
+         :alt: GSDR relational schema
+         
+
+   .. tab-item:: BSRN
+   
+      .. image:: ../_static/schema_bsrn.webp
+         :alt: BSRN relational schema
+
+
 Functions
 ~~~~~~~~~
 
@@ -112,3 +140,23 @@ Examples
 
 Applying SEASTERS macros with simple SQL syntax, please find below a series of query
 examples to access various information inside the SEASTERS database.
+
+.. literalinclude:: ../../examples/ghcnd.py
+   :language: sql
+   :caption: Extracted from ``examples/ghcnd.py``
+   :lines: 15-22
+
+.. literalinclude:: ../../examples/ghcnh.py
+   :language: sql
+   :caption: Extracted from ``examples/ghcnh.py``
+   :lines: 15-22
+
+.. literalinclude:: ../../examples/gsdr.py
+   :language: sql
+   :caption: Extracted from ``examples/gsdr.py``
+   :lines: 15-23
+
+.. literalinclude:: ../../examples/bsrn.py
+   :language: sql
+   :caption: Extracted from ``examples/bsrn.py``
+   :lines: 15-21

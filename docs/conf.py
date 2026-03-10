@@ -16,7 +16,7 @@ log = logging.getLogger()
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "seastersdb"
+project = "SEASTERS"
 copyright = "2026, Quentin Desmet"
 author = "Quentin Desmet"
 release = "2.0.0"

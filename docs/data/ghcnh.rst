@@ -21,12 +21,24 @@ Description
    (last accessed 2025-05-12)
 
 
+Relational schema
+-----------------
+
+Below is the relational schema of GHCNh in SEASTERS.
+
+.. _schema:
+
+.. image:: ../_static/schema_ghcnh.webp
+   :alt: GHCNh relational schema
+
+
 Variable overview
 -----------------
 
 **Query:**
 
 .. code:: sql
+
    SELECT *
    FROM ghcnh_var()
    ORDER BY variable
@@ -81,6 +93,12 @@ Variable overview
    ├────────────────────────┴─────────────────────────┴────────────┤
    │ 38 rows                                             3 columns │
    └───────────────────────────────────────────────────────────────┘
+
+
+.. important::
+
+   Items of the ``variable`` column above are the fields (column names) of the main
+   table's data records in ``ghcnh()``.
 
 
 Station names and IDs

@@ -1,5 +1,5 @@
-Data download/update
-====================
+Data download & update
+======================
 
 .. _location:
 
@@ -62,30 +62,35 @@ Retrieve WebDAV access information to sDrive
 To configure a remote with ``rclone``, we need a link, login and password. Let us
 retrieve those on sDrive.
 
-#. Go online and login to your sDrive account;
-#. Click "File settings" in the lower left corner;
-#. In the WebDAV section: **save the link**;
-#. Click the link below that indicates something to do with 2FA;
-#. Create a new app password with a name relating to the machine you will connect from;
-#. A pop-up appears: save the provided **login** and **password**.
+#. Go online and login to your sDrive account
+#. Click "File settings" in the lower left corner
+#. In the WebDAV section: **save the link**
+#. Click the link below that indicates something to do with 2FA
+#. Create a new app password with a name relating to the machine you will connect from
+#. A pop-up appears: save the provided **login** and **password**
 
 
 Configure ``rclone``
 ~~~~~~~~~~~~~~~~~~~~
 
-TODO
+#. Run ``rclone config``
+#. Create a new remote (e.g., with name "sdrive")
+#. Follow to the instructions: you should choose stuff relating to "WebDAV", and enter
+   the link, login and password you've previously saved
+#. No bearer token
+#. No advanced config
 
 
 Download & update
 ~~~~~~~~~~~~~~~~~
 
 We can now use `rclone copy <https://rclone.org/commands/rclone_copy/>`_ to download
-our database locally, from the ``seasters`` remote we have registered.
+our database locally, from the ``sdrive`` remote we have registered.
 We recommend the following (changing the paths adequately):
 
 .. code:: shell
 
-   rclone copy seasters:/Database /path/to/SEASTERS --verbose --stats=5s --stats-one-line > rclone.log 2>&1 & 
+   rclone copy sdrive:/DR14_UMR5566_SEASTERS/Database /path/to/SEASTERS --verbose --stats=5s --stats-one-line > rclone.log 2>&1 & 
 
 
 .. error::

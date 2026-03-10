@@ -1,8 +1,9 @@
-SEASTERSdb documentation
-========================
+The SEASTERS database and interface
+===================================
 
-SEASTERSdb is Python package providing a number of tools to support the SEASTERS
-scientific project.
+This websites presents the data included in the SEASTERS database together with
+seastersdb, a Python package providing an interface to access the database with SQL
+queries.
 
 .. toctree::
    :maxdepth: 2

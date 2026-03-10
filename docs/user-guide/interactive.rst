@@ -30,9 +30,8 @@ A window should open as in the following image. The interface is quite simple:
    format following the provided file name.
 
 
-.. admonition:: Image
-
-   TODO
+.. image:: ../_static/interactive_session.webp
+   :alt: Annotated interactive session snapshot
 
 
 This program can be used for:

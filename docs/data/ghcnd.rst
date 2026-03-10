@@ -24,6 +24,17 @@ Description
    (last accessed 2025-04-30)
 
 
+Relational schema
+-----------------
+
+Below is the relational schema of GHCNd in SEASTERS.
+
+.. _schema:
+
+.. image:: ../_static/schema_ghcnd.webp
+   :alt: GHCNd relational schema
+
+
 Variable overview
 -----------------
 
@@ -116,9 +127,16 @@ Variable overview
    └──────────────────────────────────────────────────────────────────────────────────────┘
 
 
+.. important::
+
+   Items of the ``variable`` column above are the fields (column names) of the main
+   table's data records in ``ghcnd()``.
+
+
 .. attention::
 
-   ``TAVG`` is computed in a variety of ways depending on the station, including
+   ``TAVG`` is computed in a variety of ways depending on the station. For some
+   stations for instance, ``TAVG`` points to a single daily measurement made at
    traditional fixed hours of the day.
 
 
